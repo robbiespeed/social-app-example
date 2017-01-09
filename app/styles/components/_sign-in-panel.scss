@@ -1,0 +1,22 @@
+.sign-in-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/signin_backdrop.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .btn-big {
+    background-color: rgba(160, 45, 57, 0.75);
+
+    &:hover {
+      background-color: #3b5998;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@mixin focus($color, $darken-percent: 30%, $size: 2px) {
+  $box-shadow: inset 0 0 0 $size darken($color, $darken-percent);
+  @if & {
+    &:focus {
+      outline: none;
+      box-shadow: $box-shadow;
+    }
+  } @else {
+    :focus {
+      outline: none;
+      box-shadow: $box-shadow;
+    }
+  }
+}
