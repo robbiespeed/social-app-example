@@ -21,10 +21,6 @@
   margin-right: 0.5em;
   line-height: 1.15;
 
-  &:last-child {
-    margin-right: 0;
-  }
-
   &:hover,
   &:focus {
     background-color: shade($action-color, 20%);

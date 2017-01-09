@@ -1,0 +1,11 @@
+body {
+  background-color: #fff;
+}
+
+.content {
+  padding: 1em;
+
+  & > *:first-child {
+    margin-top: 0;
+  }
+}

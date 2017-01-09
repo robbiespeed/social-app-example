@@ -1,19 +1,20 @@
 .user-section {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center;
+  background-color: #fafafa;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+
+  & > * {
+    margin: 1em;
+  }
 
   & > .profile-picture {
     height: 4em;
     width: 4em;
     border-radius: 50%;
+  }
+  & > h1 {
+    margin-left: 0;
+    flex: auto;
   }
 }

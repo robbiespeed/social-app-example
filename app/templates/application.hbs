@@ -1,6 +1,6 @@
-{{outlet}}
 {{#unless user.loggedIn}}
   {{sign-in-panel}}
 {{else}}
   {{user-section user=user}}
 {{/unless}}
+{{outlet}}
