@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import ENV from 'social-app-example/config/environment';
 
-const { RSVP } = Ember;
+const { computed, RSVP } = Ember;
 
 export default Ember.Service.extend({
-  loggedIn: false,
+  loggedIn: computed.equal('loginStatus', 'connected'),
 
   init () {
     return new RSVP.Promise((resolve) => {
@@ -17,12 +17,11 @@ export default Ember.Service.extend({
         FB.getLoginStatus((response) => {
           console.log(response);
           if (response.status === 'connected') {
-            this.handleLogin(response.authResponse.userID);
+            this.getUserData(response.authResponse.userID);
           }
-          else {
-            this.set('loggedIn', false);
-            // FB.login();
-          }
+          // else {
+          //   this.set('loggedIn', false);
+          // }
         });
         FB.AppEvents.logPageView();
 
@@ -35,15 +34,25 @@ export default Ember.Service.extend({
 
   login () {
     FB.login((response) => {
-      this.handleLogin(response.authResponse.userID);
-    }, { scope: 'public_profile'});
+      console.log(response);
+      const loginStatus = this.set('loginStatus', response.status);
+      if (loginStatus === 'connected') {
+        this.getUserData(response.authResponse.userID);
+        // Logged into your app and Facebook.
+      }
+    }, { return_scopes: true });
   },
 
-  handleLogin (userID) {
-    FB.api(userID, (data) => {
-      this.set('name', data.name);
+  getUserData (userID) {
+    const user = this.set('user', Ember.Object.create({ id: userID }));
 
-      this.set('loggedIn', true);
+    FB.api(`/${userID}?fields=first_name,last_name`, (data) => {
+      user.set('firstName', data.first_name);
+      user.set('lastName', data.last_name);
+    });
+
+    FB.api(`/${userID}/picture?height=64&width=64`, (data) => {
+      user.set('picture', data.data.url);
     });
   },
 
